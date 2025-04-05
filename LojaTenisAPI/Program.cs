@@ -19,10 +19,10 @@ builder.Services.AddDbContext<LojaTenisContext>(options=>options.UseMySQL(connec
 
 builder.Services.AddScoped<IProdutoServices, ProdutoServices>();
 builder.Services.AddScoped<IProdutoDAO, ProdutoDAO>();
-builder.Services.AddScoped<LojaTenisContext>();
 builder.Services.AddScoped<IImagemServices, ImagemServices>();
-builder.Services.AddScoped<IImagemDAO, IImagemDAO>();
+builder.Services.AddScoped<IImagemDAO, ImagemDAO>();
 
+builder.Services.AddScoped<LojaTenisContext>();
 
 
 var app = builder.Build();
