@@ -14,16 +14,29 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configure connection string for database
 var connectionString = builder.Configuration.GetConnectionString("LojaTenis");
-builder.Services.AddDbContext<LojaTenisContext>(options=>options.UseMySQL(connectionString));
+builder.Services.AddDbContext<LojaTenisContext>(options => options.UseMySQL(connectionString));
 
+// Register services and DAOs (Dependency Injection)
 builder.Services.AddScoped<IProdutoServices, ProdutoServices>();
 builder.Services.AddScoped<IProdutoDAO, ProdutoDAO>();
 builder.Services.AddScoped<IImagemServices, ImagemServices>();
 builder.Services.AddScoped<IImagemDAO, ImagemDAO>();
-
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 builder.Services.AddScoped<LojaTenisContext>();
+
+// Add CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin() // Permitir requisições de qualquer origem
+              .AllowAnyMethod() // Permitir qualquer método HTTP (GET, POST, etc.)
+              .AllowAnyHeader(); // Permitir todos os cabeçalhos, como Content-Type
+    });
+});
 
 var app = builder.Build();
 
@@ -36,10 +49,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Apply CORS policy
+app.UseCors("AllowAll");
+
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.UseCors(option => option.AllowAnyOrigin());
 
 app.Run();

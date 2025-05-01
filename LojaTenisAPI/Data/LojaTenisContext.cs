@@ -15,5 +15,7 @@ namespace LojaTenisAPI.Data
         public DbSet<ProdutoImagem> Imagens { get; set; }
 
         public DbSet<Produto> Produtos { get; set; }
+
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
