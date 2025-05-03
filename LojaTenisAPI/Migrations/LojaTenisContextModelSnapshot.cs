@@ -60,7 +60,7 @@ namespace LojaTenisAPI.Migrations
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("Imagens");
+                    b.ToTable("ProdutoImagem");
                 });
 
             modelBuilder.Entity("Usuario", b =>

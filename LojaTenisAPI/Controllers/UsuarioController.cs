@@ -1,6 +1,8 @@
-﻿using LojaTenisAPI.DTO;
+﻿using LojaTenisAPI.ViewModels;
+using LojaTenisAPI.Model;
 using LojaTenisAPI.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using LojaTenisAPI.Adapters;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -13,26 +15,31 @@ public class UsuarioController : ControllerBase
         _usuarioService = usuarioService;
     }
 
+    /*
+     O Princípio da Responsabilidade Única (Single Responsibility Principle - SRP) é um dos cinco princípios SOLID. 
+        Ele diz que cada classe deve ter apenas uma responsabilidade, ou seja, uma única razão para mudar. 
+        Uma classe deve ser responsável por executar uma única tarefa ou ação, evitando que fique com múltiplas 
+        responsabilidades que podem levar a um código mais complexo e difícil de manter. 
+    */
+
     [HttpPost("registrar")]
-    public IActionResult Registrar(UsuarioDTO usuarioDto)
+    public IActionResult Registrar(UsuarioVMRequest usuarioVM)
     {
-        if (_usuarioService.GetUsuarioPorEmail(usuarioDto.Email) != null)
-            return BadRequest("E-mail já registrado.");
-
-        var usuario = new Usuario
+        //Veja como ficou mais limpo o método        
+        try
         {
-            Email = usuarioDto.Email,
-            Nome = usuarioDto.Nome,
-            SenhaHash = GerarHashSenha(usuarioDto.Senha) // Gerar o hash da senha
-        };
+            var usuario = _usuarioService.RegistrarUsuario(usuarioVM.ToDomain(), usuarioVM.Senha);
 
-        _usuarioService.RegistrarUsuario(usuario);
-
-        return Ok(new { usuario.Id, usuario.Email, usuario.Nome });
+            return Ok(usuario.ToViewModel());
+        }
+        catch (Exception ex) 
+        { 
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost("login")]
-    public IActionResult Login(LoginDTO loginDto)
+    public IActionResult Login(LoginVM loginDto)
     {
         var usuario = _usuarioService.GetUsuarioPorEmail(loginDto.Email);
 
@@ -44,6 +51,8 @@ public class UsuarioController : ControllerBase
     }
 
     // Método para gerar hash da senha
+    // Olhar a camada Security agora e replicar
+    // JWT em tem que está lá tb
     private string GerarHashSenha(string senha)
     {
         return BCrypt.Net.BCrypt.HashPassword(senha);

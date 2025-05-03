@@ -3,6 +3,7 @@ using LojaTenisAPI.DAO.Interfaces;
 using LojaTenisAPI.Data;
 using LojaTenisAPI.Service;
 using LojaTenisAPI.Service.Interfaces;
+using LojaTenisAPI.Utils;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,15 +19,24 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("LojaTenis");
 builder.Services.AddDbContext<LojaTenisContext>(options => options.UseMySQL(connectionString));
 
-// Register services and DAOs (Dependency Injection)
+// Register Dependency Injection
+
+//Services
 builder.Services.AddScoped<IProdutoServices, ProdutoServices>();
-builder.Services.AddScoped<IProdutoDAO, ProdutoDAO>();
 builder.Services.AddScoped<IImagemServices, ImagemServices>();
-builder.Services.AddScoped<IImagemDAO, ImagemDAO>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
+//DAO
+builder.Services.AddScoped<IImagemDAO, ImagemDAO>();
+builder.Services.AddScoped<IProdutoDAO, ProdutoDAO>();
+builder.Services.AddScoped<IUsuarioDAO, UsuarioDAO>();
 
+//Utils
+builder.Services.AddScoped<ISecurityUtils, SecurityUtils>();
+
+//Context
 builder.Services.AddScoped<LojaTenisContext>();
+//Fim Register Dependency Injection
 
 // Add CORS configuration
 builder.Services.AddCors(options =>

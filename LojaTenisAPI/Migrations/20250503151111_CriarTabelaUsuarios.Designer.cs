@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LojaTenisAPI.Migrations
 {
     [DbContext(typeof(LojaTenisContext))]
-    [Migration("20250501011641_CriarTabelaUsuarios")]
+    [Migration("20250503151111_CriarTabelaUsuarios")]
     partial class CriarTabelaUsuarios
     {
         /// <inheritdoc />
@@ -63,7 +63,7 @@ namespace LojaTenisAPI.Migrations
 
                     b.HasIndex("ProdutoId");
 
-                    b.ToTable("Imagens");
+                    b.ToTable("ProdutoImagem");
                 });
 
             modelBuilder.Entity("Usuario", b =>

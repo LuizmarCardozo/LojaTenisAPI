@@ -1,8 +1,10 @@
-﻿namespace LojaTenisAPI.Service.Interfaces
+﻿using LojaTenisAPI.Model;
+
+namespace LojaTenisAPI.Service.Interfaces
 {
     public interface IUsuarioService
     {
         Usuario GetUsuarioPorEmail(string email);
-        void RegistrarUsuario(Usuario usuario);
+        Usuario RegistrarUsuario(Usuario usuario, string senha);
     }
 }

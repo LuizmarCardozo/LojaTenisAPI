@@ -1,9 +1,8 @@
-﻿namespace LojaTenisAPI.DTO
+﻿namespace LojaTenisAPI.ViewModels
 {
-    public class UsuarioDTO
+    public class LoginVM
     {
         public string Email { get; set; }
-        public string Nome { get; set; }
         public string Senha { get; set; }
     }
 }
