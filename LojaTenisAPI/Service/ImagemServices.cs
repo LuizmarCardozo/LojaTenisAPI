@@ -19,7 +19,7 @@ namespace LojaTenisAPI.Service
             if (imagem == null || string.IsNullOrWhiteSpace(imagem.Path))
             {
                 throw new ArgumentException("Dados da imagem são inválidos.");
-            }
+            }            
 
             _imagemDAO.AdicionarImagem(imagem);
         }

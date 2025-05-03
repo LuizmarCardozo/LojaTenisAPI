@@ -12,7 +12,7 @@ namespace LojaTenisAPI.Data
         }
         public LojaTenisContext(DbContextOptions<LojaTenisContext>options) : base(options) { }
 
-        public DbSet<ProdutoImagem> Imagens { get; set; }
+        public DbSet<ProdutoImagem> ProdutoImagem { get; set; }
 
         public DbSet<Produto> Produtos { get; set; }
 

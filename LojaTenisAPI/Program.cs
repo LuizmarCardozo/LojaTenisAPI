@@ -25,6 +25,7 @@ builder.Services.AddScoped<IImagemServices, ImagemServices>();
 builder.Services.AddScoped<IImagemDAO, ImagemDAO>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
+
 builder.Services.AddScoped<LojaTenisContext>();
 
 // Add CORS configuration

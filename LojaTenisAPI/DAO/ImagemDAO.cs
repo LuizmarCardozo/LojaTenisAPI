@@ -15,66 +15,68 @@ namespace LojaTenisAPI.DAO
             _context = context;
         }
 
- 
+
         public void AdicionarImagem(ProdutoImagem imagem)
         {
-            _context.Imagens.Add(imagem);
+            _context.ProdutoImagem.Add(imagem);
             _context.SaveChanges();
         }
 
-     
+
         public void AtualizarImagem(ProdutoImagem imagem)
         {
-            _context.Imagens.Update(imagem);
+            _context.ProdutoImagem.Update(imagem);
             _context.SaveChanges();
         }
-
-     
-        public ProdutoImagem GetImagemById(int id)
+               
+        //Na interface vc definiu o nome ObterImagemPorId e não GetImagemById
+        //public ProdutoImagem GetImagemById(int id)
+        public ProdutoImagem ObterImagemPorId(int id)
         {
-            return _context.Imagens.FirstOrDefault(i => i.Id == id);
+            return _context.ProdutoImagem.FirstOrDefault(i => i.Id == id);
         }
 
-       
-        public List<ProdutoImagem> GetImagemList()
+        //Na interface vc definiu o nome ObterTodasImagens e não GetImagemList
+        //public List<ProdutoImagem> GetImagemList()
+        public List<ProdutoImagem> ObterTodasImagens()
         {
-            return _context.Imagens.ToList();
+            return _context.ProdutoImagem.ToList();
         }
 
-       
+
         public void RemoverImagem(int id)
         {
-            var imagem = GetImagemById(id);
+            var imagem = ObterImagemPorId(id);
             if (imagem != null)
             {
-                _context.Imagens.Remove(imagem);
+                _context.ProdutoImagem.Remove(imagem);
                 _context.SaveChanges();
             }
         }
 
-        void IImagemDAO.AdicionarImagem(ProdutoImagem imagem)
-        {
-            throw new NotImplementedException();
-        }
+        //void IImagemDAO.AdicionarImagem(ProdutoImagem imagem)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        void IImagemDAO.AtualizarImagem(ProdutoImagem imagem)
-        {
-            throw new NotImplementedException();
-        }
+        //void IImagemDAO.AtualizarImagem(ProdutoImagem imagem)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        ProdutoImagem IImagemDAO.ObterImagemPorId(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //ProdutoImagem IImagemDAO.ObterImagemPorId(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        List<ProdutoImagem> IImagemDAO.ObterTodasImagens()
-        {
-            throw new NotImplementedException();
-        }
+        //List<ProdutoImagem> IImagemDAO.ObterTodasImagens()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        void IImagemDAO.RemoverImagem(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //void IImagemDAO.RemoverImagem(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
